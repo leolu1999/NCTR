@@ -14,7 +14,7 @@ The code will be released soon.
     ```
 
     This produces a validation set and a test set of 500 images, and the rest of the images are the training set.
-3) Then generate random homography for validation and test sets for evaluation
+3) Then generate random homography for validation and test sets for evaluation.
     ```
     python get_perspective.py --image_dir xxx
     ```
