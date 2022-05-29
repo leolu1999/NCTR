@@ -7,7 +7,7 @@ The code will be released soon.
 
 ## Data preparation
 ### R1M dataset
-1) Download R1M dataset from official [link](cmp.felk.cvut.cz/revisitop).
+1) Download R1M dataset from official [link](http://ptak.felk.cvut.cz/revisitop/revisitop1m/).
 2) To split train/val/test dataset, run
     ```
     python train_val_test_r1m.py --input_dir xxx -- output_dir xxx
