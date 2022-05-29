@@ -1,12 +1,17 @@
 # NCTR: Neighborhood Consensus Transformer for feature matching
 Repository of NCTR
-Due to the space limitation of the paper, we post the appendix here.
 
-### Visualization Results
+Due to the space limitation of the paper, we post the appendix and some additional experiment results here.
+
+The code will be release soon.
+
+### Qualitative Examples
 
 ![homography](png/homo_compare.png)
 ![pose](png/pose_compare.png)
 
-### Usage
+### Quantitative Results
 
-The code will be release soon.
+![homography](png/homography.png)
+![pose](png/pose.png)
+
