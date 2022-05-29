@@ -5,13 +5,19 @@ Due to the space limitation of the paper, we post the appendix and some addition
 
 The code will be release soon.
 
-### Qualitative Examples
+## Qualitative Examples
 
+### Homography Estimation
 ![homography](png/homo_compare.png)
+
+### Outdoor Pose Estimation
 ![pose](png/pose_compare.png)
 
-### Quantitative Results
+## Quantitative Results
 
+### Homography Estimation
 ![homography](png/homography.png)
+
+### Outdoor Pose Estimation
 ![pose](png/pose.png)
 
