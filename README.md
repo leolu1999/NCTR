@@ -8,16 +8,16 @@ The code will be release soon.
 ## Qualitative Examples
 
 ### Homography Estimation
-![homography](png/homo_compare.png)
+![homography](imgs/homo_compare.png)
 
 ### Outdoor Pose Estimation
-![pose](png/pose_compare.png)
+![pose](imgs/pose_compare.png)
 
 ## Quantitative Results
 
 ### Homography Estimation
-![homography](png/homography.png)
+![homography](imgs/homography.emf)
 
 ### Outdoor Pose Estimation
-![pose](png/pose.png)
+![pose](imgs/pose.emf)
 
