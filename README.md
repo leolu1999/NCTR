@@ -16,8 +16,8 @@ The code will be release soon.
 ## Quantitative Results
 
 ### Homography Estimation
-![homography](imgs/homography.emf)
+![homography](imgs/homography.png)
 
 ### Outdoor Pose Estimation
-![pose](imgs/pose.emf)
+![pose](imgs/pose.png)
 
