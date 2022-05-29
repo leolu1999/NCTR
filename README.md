@@ -5,6 +5,20 @@ Due to the space limitation of the paper, we post the appendix and some addition
 
 The code will be released soon.
 
+## Data preparation
+### R1M dataset
+1) Download R1M dataset from official [link](cmp.felk.cvut.cz/revisitop).
+2) To split train/val/test dataset, run
+    ```
+    python train_val_test_r1m.py --input_dir xxx -- output_dir xxx
+    ```
+
+    This produces a validation set and a test set of 500 images, and the rest of the images are the training set.
+3) Then generate random homography for validation and test sets for evaluation
+    ```
+    python get_perspective.py --image_dir xxx
+    ```
+
 ## Qualitative Examples
 
 ### Homography Estimation
