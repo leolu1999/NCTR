@@ -1,0 +1,57 @@
+train_params:
+  output_dir: output/final_model
+  experiment_name: superglue_conv_sync_wave_plus_1
+  experiment_tag: default
+  start_epoch: -1
+  batch_size: 12
+  num_epochs: 10
+  restore_opt: true
+  num_workers: 4
+  val_images_count: 500
+  init_seed: 10
+
+superglue_params:
+  sinkhorn_iterations: 20
+  match_threshold: 0.2
+  num_layers: 9
+  restore_path: D:\Luxiaoyong\SuperGlue_training-main\output/final_model/superglue_conv_sync_wave_plus_1/weights/lastiter.pt
+  weights_path: D:\Luxiaoyong\SuperGlue_training-main\output/final_model/superglue_conv_sync_wave_plus_1/weights/lastiter.pt
+  bin_value: 1.0
+  pos_loss_weight: 0.45
+  neg_loss_weight: 1.0
+  use_dropout: True
+  atten_dropout: 0.1
+
+superpoint_params:
+  nms_radius: 4
+  max_keypoints: 512
+  keypoint_threshold: 0.005
+  remove_borders: 4
+  weights_path: D:\Luxiaoyong\SuperGlue_training-main\output/final_model/superglue_conv_sync_wave_plus_1/weights/lastiter.pt
+
+optimizer_params:
+  opt_type: adam
+  sp_lr: 0.0001
+  lr: 0.0001 #initial learning rate
+  weight_decay: 0.01 #weight decay to use for weights. Bias components are excluded
+  warmup_epochs: 1 #Number of epoch for warming up the learning rate
+
+
+dataset_params:
+  dataset_path: G:\R1M_dataset
+  val_path: G:\R1M_dataset
+  apply_color_aug: true #whether to apply photometric distortions
+  image_height: 480
+  image_width: 640
+  resize_aspect: false #whether to resize the input image with aspect ratio maintained
+  augmentation_params:
+    patch_ratio: 0.85
+    #All the below params are ranges for distortion. (0, Mentioned_value).
+    #Refer 'get_perspective_mat' function in utils/preprocess_utils.py for more info
+    perspective_x: 0.0008 # range for perspective-x component
+    perspective_y: 0.0008 #range of perspective-y component
+    shear_ratio: 0.04 #shear ratio range
+    shear_angle: 10 #shear direction range
+    rotation_angle: 25 #rotation angle range
+    scale: 0.6 #uniform scaling range
+    translation: 0.6 #translation component range
