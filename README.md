@@ -3,7 +3,18 @@ Repository of NCTR
 
 Due to the space limitation of the paper, we post the appendix and some additional experiment results here.
 
-The code will be released soon.
+## Requirements
+* Python 3 >= 3.5
+* **[PyTorch](https://pytorch.org/get-started/locally/)** (>=1.2.0)
+* **[PyTorch Geometric](https://github.com/rusty1s/pytorch_geometric)** (>=1.5.0)
+* OpenCV >= 3.4 
+* Matplotlib >= 3.1
+* NumPy >= 1.18
+
+ The requirements are listed in the `requirement.txt` file. To install all dependencies, run:
+```
+pip install -r requirement.txt
+```
 
 ## Data preparation
 ### R1M dataset

@@ -28,17 +28,17 @@ def train(config):
 
     init_seeds(config['train_params']['init_seed'])
 
-    config['superglue_params']['GNN_layers'] = ['self', 'cross'] * config['superglue_params']['num_layers']
-    NCTR_model = NCTR(config['superglue_params']).to(device)
+    config['NCTR_params']['GNN_layers'] = ['self', 'cross'] * config['NCTR_params']['num_layers']
+    NCTR_model = NCTR(config['NCTR_params']).to(device)
     superpoint_model = SuperPoint(config['superpoint_params']).to(device)
 
     start_epoch = config['train_params']['start_epoch'] if config['train_params']['start_epoch'] > -1 else 0
 
-    if config['superglue_params']['restore_path']:
-        restore_dict = torch.load(config['superglue_params']['restore_path'], map_location=device)
+    if config['NCTR_params']['restore_path']:
+        restore_dict = torch.load(config['NCTR_params']['restore_path'], map_location=device)
         NCTR_model.load_state_dict(
             clean_checkpoint(restore_dict['model'] if 'model' in restore_dict else restore_dict))
-        print("Restored SuperGlue weights..")
+        print("Restored NCTR weights..")
         superpoint_model.load_state_dict(
             clean_checkpoint(restore_dict['model_sp'] if 'model_sp' in restore_dict else restore_dict))
         print("Restored SuperPoint weights..")
@@ -48,10 +48,10 @@ def train(config):
     optimizer = torch.optim.AdamW([{'params':filter(lambda p: p.requires_grad, superpoint_model.parameters()), 'lr':config['optimizer_params']['sp_lr']},
                                    {'params':NCTR_model.parameters(), 'lr':config['optimizer_params']['lr']}])
     print('SuperPoint: %g parameters' % (len(optimizer.param_groups[0]['params'])))
-    print('SuperGlue: %g parameters' % (len(optimizer.param_groups[1]['params'])))
+    print('NCTR: %g parameters' % (len(optimizer.param_groups[1]['params'])))
     scaler = GradScaler()
 
-    if config['superglue_params']['restore_path']:
+    if config['NCTR_params']['restore_path']:
         if ('optimizer' in restore_dict) and config['train_params']['restore_opt']:
             optimizer.load_state_dict(restore_dict['optimizer'])
             print("Restored optimizer...")
@@ -130,7 +130,7 @@ def train(config):
                 keypoints0, keypoints1 = keypoints0.transpose(0, 1), keypoints1.transpose(0, 1)
                 descriptors0, descriptors1 = descriptors0.permute(2, 0, 1), descriptors1.permute(2, 0, 1)
                 scores0, scores1 = scores0.transpose(0, 1), scores1.transpose(0, 1)
-                superglue_input = {
+                input = {
                     'keypoints0': keypoints0, 'keypoints1': keypoints1,
                     'descriptors0': descriptors0, 'descriptors1': descriptors1,
                     'image0': images0, 'image1': images1,
@@ -138,8 +138,7 @@ def train(config):
                     'matches': match_indexes,
                     'gt_vec': gt_vector
                 }
-                # total_loss, pos_loss, neg_loss = superglue_model(superglue_input, **{'mode': 'train'})
-                total_loss, pos_loss, neg_loss = NCTR_model(superglue_input)
+                total_loss, pos_loss, neg_loss = NCTR_model(input)
             epoch_loss += total_loss.item()
             scaler.scale(total_loss).backward()
             scaler.step(optimizer)
@@ -164,8 +163,8 @@ def train(config):
                 print("\nDoing evaluation..")
                 loss = mloss[2].item()
                 with torch.no_grad():
-                    eval_superglue = NCTR_model
-                    results = test_model(val_dataloader, superpoint_model, eval_superglue,
+                    eval_NCTR = NCTR_model
+                    results = test_model(val_dataloader, superpoint_model, eval_NCTR,
                                          config['train_params']['val_images_count'], device)
                     writer.add_scalar('ransac_auc', results['ransac_auc'][2], epoch * 4 + (i + 1) / 20000)
                     writer.add_scalar('dlt_auc', results['dlt_auc'][2], epoch * 4 + (i + 1) / 20000)
@@ -182,8 +181,8 @@ def train(config):
             t5 = time_synchronized()
         print("\nDoing evaluation..")
         with torch.no_grad():
-            eval_superglue = NCTR_model
-            results = test_model(val_dataloader, superpoint_model, eval_superglue,
+            eval_NCTR = NCTR_model
+            results = test_model(val_dataloader, superpoint_model, eval_NCTR,
                                  config['train_params']['val_images_count'], device)
             writer.add_scalar('epoch_ransac_auc', results['ransac_auc'][2], epoch)
             writer.add_scalar('epoch_dlt_auc', results['dlt_auc'][2], epoch)
