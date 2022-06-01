@@ -38,11 +38,4 @@ pip install -r requirement.txt
 ### Outdoor Pose Estimation
 ![pose](imgs/pose_compare.png)
 
-## Quantitative Results
-
-### Homography Estimation
-![homography](imgs/homo.png)
-
-### Outdoor Pose Estimation
-![pose](imgs/pose.png)
 
