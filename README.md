@@ -33,7 +33,7 @@ pip install -r requirement.txt
 We put the settings in the `configs/config.yaml` file, which user can edit or use unchanged.
 To launch train , run:  
 ```
-python train_NCTR.py --config='configs/config.yaml'
+python train_NCTR.py --config_path='configs/config.yaml'
 ```
 The logging results will be visible inside a log folder + experiment name, specified in `config.yaml`. 
 
